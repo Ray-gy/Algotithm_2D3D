@@ -1,0 +1,61 @@
+# 图像处理参数配置
+segmentation:
+  # 基于颜色的分割参数（针对绿色橡皮障）
+  color_based:
+    method: "hsv_threshold"  # hsv_threshold, rgb_threshold
+    # HSV阈值范围（绿色背景）
+    hsv_lower: [40, 40, 40]   # H, S, V 下限
+    hsv_upper: [80, 255, 255] # H, S, V 上限
+    invert_mask: true         # 反转掩码（保留非绿色区域）
+  
+  # 形态学操作参数
+  morphology:
+    kernel_size: 5           # 核大小
+    opening_iterations: 2    # 开运算迭代次数
+    closing_iterations: 3    # 闭运算迭代次数
+
+# 轮廓提取参数（改进Canny算法）
+contour_extraction:
+  # 自适应高斯滤波参数
+  adaptive_gaussian:
+    sigma_min: 0.5          # 最小标准差
+    sigma_max: 2.0          # 最大标准差
+    step_size: 0.1          # 步长
+    constant_c: 10.0        # 能量函数常数项
+  
+  # Canny边缘检测参数
+  canny:
+    auto_threshold: true    # 自动阈值
+    threshold_low: 50       # 低阈值（auto_threshold=false时使用）
+    threshold_high: 150     # 高阈值（auto_threshold=false时使用）
+    aperture_size: 3        # Sobel核大小
+  
+  # 轮廓过滤参数
+  contour_filter:
+    min_area: 50            # 最小轮廓面积（降低阈值）
+    max_area: 500000        # 最大轮廓面积（增大阈值）
+    min_perimeter: 20       # 最小周长（降低阈值）
+
+# 图像预处理参数
+preprocessing:
+  # 图像尺寸
+  resize:
+    enabled: true
+    target_width: 800       # 目标宽度
+    target_height: 600      # 目标高度
+    keep_aspect: true       # 保持宽高比
+  
+  # 去噪参数
+  denoise:
+    method: "bilateral"     # bilateral, gaussian, median
+    bilateral_d: 9          # 双边滤波直径
+    bilateral_sigma_color: 75
+    bilateral_sigma_space: 75
+
+# 可视化参数
+visualization:
+  line_thickness: 2
+  colors:
+    contour: [0, 255, 0]    # 绿色轮廓
+    mask: [255, 0, 0]       # 红色掩码
+    background: [0, 0, 255] # 蓝色背景

@@ -1,0 +1,25 @@
+# 主配置文件
+project:
+  name: "tooth_registration"
+  version: "0.1.0"
+  author: "Developer"
+
+# 路径配置
+paths:
+  data_root: "data"
+  raw_images: "data/raw/microscope_images"
+  processed: "data/processed"
+  output: "output"
+  logs: "output/logs"
+
+# 日志配置
+logging:
+  level: "INFO"
+  format: "{time} - {level} - {message}"
+  file: "output/logs/app.log"
+
+# 调试模式
+debug:
+  enabled: true
+  save_intermediate: true  # 保存中间处理结果
+  show_plots: true        # 显示可视化结果
